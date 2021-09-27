@@ -1,14 +1,10 @@
-// const rc = require('rc');
+import * as dotenv from "dotenv";
 
-// module.exports = rc('JWT', {
-//   port: process.env.SERVER_PORT || 3000,
-//   connection: './data',
-//   secret: 'VERYSECRETKEY',
-// });
+dotenv.config();
 
 const NODE_ENV = process.env.NODE_ENV || "development";
 
-const config = {
+export const config = {
   environment: NODE_ENV,
   jwt: {
     secretAccess: process.env.JWT_SECRET_ACCESS || "SECRET_ACCESS",
@@ -24,13 +20,11 @@ const config = {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     },
-    get url() {
-      return `mongodb+srv://${this.user}:${this.password}@cluster0.vtbez.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+    get url(): string {
+      return `mongodb+srv://${this.user}:${this.password}@cluster0.vtbez.mongodb.net/${this.name}?retryWrites=true&w=majority`;
     },
   },
   server: {
     port: process.env.SERVER_PORT || 3000,
   },
 };
-
-module.exports = config;
